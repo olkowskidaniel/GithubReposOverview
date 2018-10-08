@@ -1,7 +1,9 @@
 package com.example.daniel.githubreposoverview.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
+import com.example.daniel.githubreposoverview.presenter.RepositoryDetailsPresenter;
 import com.example.daniel.githubreposoverview.presenter.RepositoryListPresenter;
 
 import java.util.List;
@@ -29,7 +32,9 @@ public class MainActivity extends AppCompatActivity implements IView {
     //Classes
     private GitRecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView.LayoutManager recyclerViewLayoutManager;
-    public RepositoryListPresenter repositoryListPresenter;
+    private RepositoryListPresenter repositoryListPresenter;
+    private RepositoryDetailsPresenter repositoryDetailsPresenter;
+    private Intent detailsIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +45,38 @@ public class MainActivity extends AppCompatActivity implements IView {
         recyclerViewAdapter = new GitRecyclerViewAdapter();
         mainReposOverviewRecyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewLayoutManager = new LinearLayoutManager(this);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mainReposOverviewRecyclerView.getContext(), 1);
+        mainReposOverviewRecyclerView.addItemDecoration(dividerItemDecoration);
 
         repositoryListPresenter = new RepositoryListPresenter();
         repositoryListPresenter.loadList();
+
+        repositoryDetailsPresenter = new RepositoryDetailsPresenter();
+        recyclerViewAdapter.setRepositoryDetailsPresenter(repositoryDetailsPresenter);
+
+        detailsIntent = new Intent(this, RepoDetailsActivity.class);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         repositoryListPresenter.attach(this);
+        repositoryDetailsPresenter.attach(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         repositoryListPresenter.detach();
+        repositoryDetailsPresenter.detach();
     }
 
     @Override
     public void showList(List<GithubRepo> list) {
         recyclerViewAdapter.setRepos(list);
         recyclerViewAdapter.notifyDataSetChanged();
+    }
+    public void openDetailsActivity(){
+        startActivity(detailsIntent);
     }
 }

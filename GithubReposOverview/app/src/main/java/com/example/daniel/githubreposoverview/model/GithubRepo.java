@@ -3,6 +3,8 @@ package com.example.daniel.githubreposoverview.model;
 public class GithubRepo {
     private String name;
     private String watchers_count;
+    private GithubRepoOwner owner;
+
 
     public GithubRepo(String name, String watchers_count) {
         this.name = name;
@@ -23,5 +25,13 @@ public class GithubRepo {
 
     public void setStarsAmount(String starsAmount) {
         this.watchers_count = watchers_count;
+    }
+
+    public String getOwnerLogin() {
+        return owner.getLogin();
+    }
+
+    public void setOwnerLogin(String login) {
+        owner.setLogin(login);
     }
 }

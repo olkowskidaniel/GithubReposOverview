@@ -4,4 +4,7 @@
     <string name="listNameTextView_text">REPO NAME</string>
     <string name="listrowRepoNameTextView_text">REPO NAME</string>
     <string name="listrowStarAmountTextView_text">0</string>
+    <string name="nameRepoDetailsTextView_text">REPO NAME</string>
+    <string name="ownerRepoDetailsTextView_text">OWNER:</string>
+    <string name="ownerLoginRepoDetailsTextView_text">Login:</string>
 </resources>

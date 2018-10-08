@@ -53,8 +53,4 @@ public class RepositoryListPresenter {
     public void detach(){
         this.view = null;
     }
-
-    public List<GithubRepo> getGithubRepos() {
-        return githubRepos;
-    }
 }
