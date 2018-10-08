@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GithubReposOverview</string>
+    <string name="githubReposMainTextView_text">ANDROID GITHUB REPOS</string>
+    <string name="listNameTextView_text">REPO NAME</string>
+    <string name="listrowRepoNameTextView_text">REPO NAME</string>
+    <string name="listrowStarAmountTextView_text">0</string>
 </resources>
