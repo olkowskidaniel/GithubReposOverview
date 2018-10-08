@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
     @Override
     public void showList(List<GithubRepo> list) {
-        recyclerViewAdapter.setRepos(repositoryListPresenter.getGithubRepos());
+        recyclerViewAdapter.setRepos(list);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 }

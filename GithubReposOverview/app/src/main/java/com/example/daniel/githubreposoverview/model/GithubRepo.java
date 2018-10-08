@@ -17,7 +17,7 @@ public class GithubRepo {
         this.name = name;
     }
 
-    public String getStarsAmount() {
+    public String getWatchersCount() {
         return watchers_count;
     }
 

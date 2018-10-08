@@ -29,10 +29,9 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         GithubRepo githubRepo = repos.get(i);
-        Log.d("name from adapter", repos.get(0).getName());
 
         viewHolder.listrowRepoNameTextView.setText(githubRepo.getName());
-        viewHolder.listrowStarAmountTextView.setText(getItemCount());
+        viewHolder.listrowStarAmountTextView.setText(githubRepo.getWatchersCount());
     }
 
     @Override
