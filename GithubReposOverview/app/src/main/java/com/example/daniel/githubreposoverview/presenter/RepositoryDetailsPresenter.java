@@ -14,5 +14,4 @@ public class RepositoryDetailsPresenter {
     public void openDetails(){
         view.openDetailsActivity();
     }
-
 }

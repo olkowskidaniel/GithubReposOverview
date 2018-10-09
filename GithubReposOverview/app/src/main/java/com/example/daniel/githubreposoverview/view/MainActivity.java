@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements IView {
+public class MainActivity extends AppCompatActivity implements IView, OnItemClickListener {
 
     //Views
     @BindView(R.id.mainGithubReposTextView)
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements IView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mainReposOverviewRecyclerView.setHasFixedSize(true);
-        recyclerViewAdapter = new GitRecyclerViewAdapter();
+        recyclerViewAdapter = new GitRecyclerViewAdapter(this);
         mainReposOverviewRecyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewLayoutManager = new LinearLayoutManager(this);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mainReposOverviewRecyclerView.getContext(), 1);
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements IView {
         repositoryListPresenter.loadList();
 
         repositoryDetailsPresenter = new RepositoryDetailsPresenter();
-        recyclerViewAdapter.setRepositoryDetailsPresenter(repositoryDetailsPresenter);
 
         detailsIntent = new Intent(this, RepoDetailsActivity.class);
     }
@@ -76,7 +74,13 @@ public class MainActivity extends AppCompatActivity implements IView {
         recyclerViewAdapter.setRepos(list);
         recyclerViewAdapter.notifyDataSetChanged();
     }
+
     public void openDetailsActivity(){
         startActivity(detailsIntent);
+    }
+
+    @Override
+    public void onItemClick(GithubRepo repo) {
+        repositoryDetailsPresenter.openDetails();
     }
 }

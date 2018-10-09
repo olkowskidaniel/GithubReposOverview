@@ -1,19 +1,14 @@
 package com.example.daniel.githubreposoverview.view;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
-import com.example.daniel.githubreposoverview.presenter.RepositoryDetailsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +17,11 @@ import java.util.List;
 public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerViewAdapter.ViewHolder> {
     //private LayoutInflater layoutInflater;
     private List<GithubRepo> repos = new ArrayList<>();
-    private RepositoryDetailsPresenter repositoryDetailsPresenter;
+    private OnItemClickListener listener;
+
+    public GitRecyclerViewAdapter(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -32,10 +31,7 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        GithubRepo githubRepo = repos.get(i);
-
-        viewHolder.listrowRepoNameTextView.setText(githubRepo.getName());
-        viewHolder.listrowStarAmountTextView.setText(githubRepo.getWatchersCount());
+        viewHolder.bind(repos.get(i), listener);
     }
 
     @Override
@@ -43,27 +39,29 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
         return repos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView listrowRepoNameTextView;
         public TextView listrowStarAmountTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
             listrowRepoNameTextView = (TextView) itemView.findViewById(R.id.listrowRepoNameTextView);
             listrowStarAmountTextView = (TextView) itemView.findViewById(R.id.listrowStarAmountTextView);
         }
 
-        @Override
-        public void onClick(View view) {
-            repositoryDetailsPresenter.openDetails();
+        public void bind(final GithubRepo repo, final OnItemClickListener listener) {
+            listrowRepoNameTextView.setText(repo.getName());
+            listrowStarAmountTextView.setText(repo.getWatchersCount());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(repo);
+                }
+            });
         }
     }
 
     public void setRepos(List<GithubRepo> repos) {
         this.repos = repos;
-    }
-    public void setRepositoryDetailsPresenter(RepositoryDetailsPresenter repositoryDetailsPresenter){
-        this.repositoryDetailsPresenter = repositoryDetailsPresenter;
     }
 }
