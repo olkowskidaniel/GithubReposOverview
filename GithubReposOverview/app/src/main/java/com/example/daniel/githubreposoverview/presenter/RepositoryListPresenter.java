@@ -35,7 +35,7 @@ public class RepositoryListPresenter {
             @Override
             public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
                 githubRepos = response.body();
-                if(view != null){
+                if (view != null) {
                     view.showList(githubRepos);
                 }
             }
@@ -47,10 +47,15 @@ public class RepositoryListPresenter {
         });
     }
 
-    public void attach(IView view){
+    public void attach(IView view) {
         this.view = view;
     }
-    public void detach(){
+
+    public void detach() {
         this.view = null;
+    }
+
+    public void openDetails() {
+        view.openDetailsActivity();
     }
 }

@@ -9,7 +9,7 @@ import com.example.daniel.githubreposoverview.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepoDetailsActivity extends AppCompatActivity {
+public class RepoDetailsActivity extends AppCompatActivity implements IViewDetails {
 
     @BindView(R.id.nameRepoDetailsTextView)
     TextView nameRepoDetailsTextView;
@@ -17,6 +17,7 @@ public class RepoDetailsActivity extends AppCompatActivity {
     TextView ownerRepoDetailsTextView;
     @BindView(R.id.ownerLoginRepoDetailsTextView)
     TextView ownerLoginRepoDetailsTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

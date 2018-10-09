@@ -7,12 +7,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
-import com.example.daniel.githubreposoverview.presenter.RepositoryDetailsPresenter;
 import com.example.daniel.githubreposoverview.presenter.RepositoryListPresenter;
 
 import java.util.List;
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
     private GitRecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView.LayoutManager recyclerViewLayoutManager;
     private RepositoryListPresenter repositoryListPresenter;
-    private RepositoryDetailsPresenter repositoryDetailsPresenter;
     private Intent detailsIntent;
 
     @Override
@@ -50,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
         repositoryListPresenter = new RepositoryListPresenter();
         repositoryListPresenter.loadList();
 
-        repositoryDetailsPresenter = new RepositoryDetailsPresenter();
-
         detailsIntent = new Intent(this, RepoDetailsActivity.class);
     }
 
@@ -59,14 +54,12 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
     protected void onStart() {
         super.onStart();
         repositoryListPresenter.attach(this);
-        repositoryDetailsPresenter.attach(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         repositoryListPresenter.detach();
-        repositoryDetailsPresenter.detach();
     }
 
     @Override
@@ -75,12 +68,12 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    public void openDetailsActivity(){
+    public void openDetailsActivity() {
         startActivity(detailsIntent);
     }
 
     @Override
     public void onItemClick(GithubRepo repo) {
-        repositoryDetailsPresenter.openDetails();
+        repositoryListPresenter.openDetails();
     }
 }
