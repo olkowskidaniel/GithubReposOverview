@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IView {
     void showList(List<GithubRepo> list);
-    void openDetailsActivity();
+    void openDetailsActivity(GithubRepo repo);
 }

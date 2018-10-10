@@ -68,12 +68,13 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    public void openDetailsActivity() {
+    public void openDetailsActivity(GithubRepo repo) {
+        detailsIntent.putExtra("githubRepo_parcel", repo);
         startActivity(detailsIntent);
     }
 
     @Override
     public void onItemClick(GithubRepo repo) {
-        repositoryListPresenter.openDetails();
+        repositoryListPresenter.openDetails(repo);
     }
 }

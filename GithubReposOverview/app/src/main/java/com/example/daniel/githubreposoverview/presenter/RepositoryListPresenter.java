@@ -55,7 +55,7 @@ public class RepositoryListPresenter {
         this.view = null;
     }
 
-    public void openDetails() {
-        view.openDetailsActivity();
+    public void openDetails(GithubRepo repo) {
+        view.openDetailsActivity(repo);
     }
 }

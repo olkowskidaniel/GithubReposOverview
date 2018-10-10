@@ -1,17 +1,21 @@
 package com.example.daniel.githubreposoverview.presenter;
 
-import com.example.daniel.githubreposoverview.view.IView;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.example.daniel.githubreposoverview.model.GithubRepo;
+import com.example.daniel.githubreposoverview.view.IViewDetails;
 
 public class RepositoryDetailsPresenter {
-    private IView view;
+    private IViewDetails viewDetails;
 
-    public void attach(IView view){
-        this.view = view;
+    public void attach(IViewDetails viewDetails){
+        this.viewDetails = viewDetails;
     }
     public void detach(){
-        this.view = null;
+        this.viewDetails = null;
     }
-    public void openDetails(){
-        view.openDetailsActivity();
+    public void parseParcel(GithubRepo repo){
+        viewDetails.showRepo(repo.getName(), repo.getOwnerLogin());
     }
 }
