@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
+import com.example.daniel.githubreposoverview.model.GithubRepoOwner;
 import com.example.daniel.githubreposoverview.presenter.RepositoryDetailsPresenter;
 
 import butterknife.BindView;
@@ -22,8 +23,8 @@ public class RepoDetailsActivity extends AppCompatActivity implements IViewDetai
     TextView ownerLoginRepoDetailsTextView;
 
     RepositoryDetailsPresenter repositoryDetailsPresenter;
-    Intent detailsIntent;
     GithubRepo repo;
+    GithubRepoOwner owner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,8 @@ public class RepoDetailsActivity extends AppCompatActivity implements IViewDetai
         ButterKnife.bind(this);
         repositoryDetailsPresenter = new RepositoryDetailsPresenter();
         repositoryDetailsPresenter.attach(this);
-        repo = getIntent().getParcelableExtra("githubRepo_parcel");
-        repositoryDetailsPresenter.parseParcel(repo);
+        repo = getIntent().getParcelableExtra("githubRepoParcel");
+        repositoryDetailsPresenter.parseParcel(repo, owner);
     }
 
     @Override

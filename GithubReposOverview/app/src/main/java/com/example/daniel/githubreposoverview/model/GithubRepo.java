@@ -12,7 +12,7 @@ public class GithubRepo implements Parcelable {
     public GithubRepo(Parcel in) {
         name = in.readString();
         watchers_count = in.readString();
-        owner.setLogin(in.readString());
+        owner = in.readParcelable(GithubRepoOwner.class.getClassLoader());
     }
 
 
@@ -36,7 +36,7 @@ public class GithubRepo implements Parcelable {
         return owner.getLogin();
     }
 
-    public void setOwnerLogin(String login) {
+   public void setOwnerLogin(String login) {
         owner.setLogin(login);
     }
 
@@ -49,7 +49,7 @@ public class GithubRepo implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(watchers_count);
-        parcel.writeString(getOwnerLogin());
+        parcel.writeParcelable(owner, i);
     }
 
     public static final Parcelable.Creator<GithubRepo> CREATOR = new Parcelable.Creator<GithubRepo>(){
@@ -64,3 +64,4 @@ public class GithubRepo implements Parcelable {
         }
     };
 }
+

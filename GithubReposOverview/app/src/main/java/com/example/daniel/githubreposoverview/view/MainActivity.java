@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.daniel.githubreposoverview.R;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
     }
 
     public void openDetailsActivity(GithubRepo repo) {
-        detailsIntent.putExtra("githubRepo_parcel", repo);
+        detailsIntent.putExtra("githubRepoParcel", repo);
         startActivity(detailsIntent);
     }
 
