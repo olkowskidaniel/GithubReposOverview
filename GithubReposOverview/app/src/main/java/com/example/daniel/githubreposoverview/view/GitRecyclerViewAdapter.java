@@ -16,7 +16,7 @@ import java.util.List;
 
 
 public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerViewAdapter.ViewHolder> {
-    private SearchResult repos = new SearchResult();
+    private SearchResult searchResult = new SearchResult();
     private OnItemClickListener listener;
 
     public GitRecyclerViewAdapter(OnItemClickListener listener) {
@@ -31,13 +31,13 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.bind(repos, listener, i);
+        viewHolder.bind(searchResult, listener, i);
     }
 
     @Override
     public int getItemCount() {
-        if(repos.getItems() != null)
-            return repos.getItems().size();
+        if(searchResult.getItems() != null)
+            return searchResult.getItems().size();
         else
             return 0;
     }
@@ -64,7 +64,7 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
         }
     }
 
-    public void setRepos(SearchResult repos) {
-        this.repos = repos;
+    public void setRepos(SearchResult searchResult) {
+        this.searchResult = searchResult;
     }
 }
