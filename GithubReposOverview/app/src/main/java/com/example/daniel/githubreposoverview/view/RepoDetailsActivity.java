@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
 import com.example.daniel.githubreposoverview.model.GithubRepoOwner;
+import com.example.daniel.githubreposoverview.model.SearchResult;
 import com.example.daniel.githubreposoverview.presenter.RepositoryDetailsPresenter;
 
 import butterknife.BindView;
@@ -23,8 +24,10 @@ public class RepoDetailsActivity extends AppCompatActivity implements IViewDetai
     TextView ownerLoginRepoDetailsTextView;
 
     RepositoryDetailsPresenter repositoryDetailsPresenter;
+    SearchResult searchResult;
     GithubRepo repo;
     GithubRepoOwner owner;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,9 @@ public class RepoDetailsActivity extends AppCompatActivity implements IViewDetai
         ButterKnife.bind(this);
         repositoryDetailsPresenter = new RepositoryDetailsPresenter();
         repositoryDetailsPresenter.attach(this);
-        repo = getIntent().getParcelableExtra("githubRepoParcel");
-        repositoryDetailsPresenter.parseParcel(repo, owner);
+        searchResult = getIntent().getParcelableExtra("searchResultParcel");
+        position = getIntent().getExtras().getInt("position");
+        repositoryDetailsPresenter.parseParcel(searchResult, searchResult.getItems().get(position).getOwner(), position);
     }
 
     @Override

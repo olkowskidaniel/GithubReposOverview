@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
+import com.example.daniel.githubreposoverview.model.SearchResult;
 import com.example.daniel.githubreposoverview.presenter.RepositoryListPresenter;
 
 import java.util.List;
@@ -64,18 +66,24 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
     }
 
     @Override
-    public void showList(List<GithubRepo> list) {
-        recyclerViewAdapter.setRepos(list);
+    public void showList(SearchResult searchResult) {
+        recyclerViewAdapter.setRepos(searchResult);
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    public void openDetailsActivity(GithubRepo repo) {
-        detailsIntent.putExtra("githubRepoParcel", repo);
+    public void openDetailsActivity(SearchResult searchResult, int i) {
+        detailsIntent.putExtra("searchResultParcel", searchResult);
+        detailsIntent.putExtra("position", i);
         startActivity(detailsIntent);
     }
 
     @Override
-    public void onItemClick(GithubRepo repo) {
-        repositoryListPresenter.openDetails(repo);
+    public void showError() {
+        Toast.makeText(this,"NO RESPONSE FROM API", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemClick(SearchResult searchResult, int i) {
+        repositoryListPresenter.openDetails(searchResult, i);
     }
 }

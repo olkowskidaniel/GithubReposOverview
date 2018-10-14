@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.example.daniel.githubreposoverview.model.GithubRepo;
 import com.example.daniel.githubreposoverview.model.GithubRepoOwner;
+import com.example.daniel.githubreposoverview.model.SearchResult;
 import com.example.daniel.githubreposoverview.view.IViewDetails;
 
 public class RepositoryDetailsPresenter {
@@ -16,7 +17,7 @@ public class RepositoryDetailsPresenter {
     public void detach(){
         this.viewDetails = null;
     }
-    public void parseParcel(GithubRepo repo, GithubRepoOwner owner){
-        viewDetails.showRepo(repo.getName(), owner.getLogin());
+    public void parseParcel(SearchResult searchResult, GithubRepoOwner owner, int i){
+        viewDetails.showRepo(searchResult.getItems().get(i).getName(), owner.getLogin());
     }
 }

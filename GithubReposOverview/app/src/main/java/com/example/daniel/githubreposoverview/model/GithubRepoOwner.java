@@ -7,14 +7,12 @@ public class GithubRepoOwner implements Parcelable{
     private String login;
     private int id;
     private String html_url;
-    private GithubRepoOwner owner;
 
 
     protected GithubRepoOwner(Parcel in) {
         login = in.readString();
         id = in.readInt();
         html_url = in.readString();
-        owner = in.readParcelable(GithubRepoOwner.class.getClassLoader());
     }
 
     public static final Creator<GithubRepoOwner> CREATOR = new Creator<GithubRepoOwner>() {
@@ -63,6 +61,5 @@ public class GithubRepoOwner implements Parcelable{
         parcel.writeString(login);
         parcel.writeInt(id);
         parcel.writeString(html_url);
-        parcel.writeParcelable(owner, i);
     }
 }

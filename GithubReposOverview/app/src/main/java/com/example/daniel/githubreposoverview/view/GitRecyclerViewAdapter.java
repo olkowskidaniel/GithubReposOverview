@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.example.daniel.githubreposoverview.R;
 import com.example.daniel.githubreposoverview.model.GithubRepo;
+import com.example.daniel.githubreposoverview.model.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerViewAdapter.ViewHolder> {
-    //private LayoutInflater layoutInflater;
-    private List<GithubRepo> repos = new ArrayList<>();
+    private SearchResult repos = new SearchResult();
     private OnItemClickListener listener;
 
     public GitRecyclerViewAdapter(OnItemClickListener listener) {
@@ -31,12 +31,15 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.bind(repos.get(i), listener);
+        viewHolder.bind(repos, listener, i);
     }
 
     @Override
     public int getItemCount() {
-        return repos.size();
+        if(repos.getItems() != null)
+            return repos.getItems().size();
+        else
+            return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,19 +52,19 @@ public class GitRecyclerViewAdapter extends RecyclerView.Adapter<GitRecyclerView
             listrowStarAmountTextView = (TextView) itemView.findViewById(R.id.listrowStarAmountTextView);
         }
 
-        public void bind(final GithubRepo repo, final OnItemClickListener listener) {
-            listrowRepoNameTextView.setText(repo.getName());
-            listrowStarAmountTextView.setText(repo.getWatchersCount());
+        public void bind(final SearchResult searchResult, final OnItemClickListener listener, final int i) {
+            listrowRepoNameTextView.setText(searchResult.getItems().get(i).getName());
+            listrowStarAmountTextView.setText(searchResult.getItems().get(i).getWatchersCount());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(repo);
+                    listener.onItemClick(searchResult, i);
                 }
             });
         }
     }
 
-    public void setRepos(List<GithubRepo> repos) {
+    public void setRepos(SearchResult repos) {
         this.repos = repos;
     }
 }

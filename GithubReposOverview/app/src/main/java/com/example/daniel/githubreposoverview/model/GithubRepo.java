@@ -6,8 +6,14 @@ import android.os.Parcelable;
 public class GithubRepo implements Parcelable {
     private String name;
     private String watchers_count;
+
+    public GithubRepoOwner getOwner() {
+        return owner;
+    }
+
     private GithubRepoOwner owner;
 
+    public GithubRepo(){}
 
     public GithubRepo(Parcel in) {
         name = in.readString();
@@ -39,6 +45,7 @@ public class GithubRepo implements Parcelable {
    public void setOwnerLogin(String login) {
         owner.setLogin(login);
     }
+
 
     @Override
     public int describeContents() {

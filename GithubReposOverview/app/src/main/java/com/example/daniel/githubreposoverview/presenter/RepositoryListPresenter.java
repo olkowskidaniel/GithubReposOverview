@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.daniel.githubreposoverview.model.GithubRepo;
+import com.example.daniel.githubreposoverview.model.SearchResult;
 import com.example.daniel.githubreposoverview.network.GitHubService;
 import com.example.daniel.githubreposoverview.view.GitRecyclerViewAdapter;
 import com.example.daniel.githubreposoverview.view.IView;
@@ -25,24 +26,25 @@ public class RepositoryListPresenter {
     private GitHubService gitHubService;
     private IView view;
 
-    private List<GithubRepo> githubRepos;
+    private SearchResult searchResults;
 
     public void loadList() {
         retrofit = new Retrofit.Builder().baseUrl("https://api.github.com/").addConverterFactory(GsonConverterFactory.create()).build();
         gitHubService = retrofit.create(GitHubService.class);
-        Call<List<GithubRepo>> call = gitHubService.getReposFromApi("olkowskidaniel");
-        call.enqueue(new Callback<List<GithubRepo>>() {
+        Call<SearchResult> call = gitHubService.getReposFromApi("android", "stars", "desc");
+        call.enqueue(new Callback<SearchResult>() {
             @Override
-            public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
-                githubRepos = response.body();
+            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+                searchResults = response.body();
                 if (view != null) {
-                    view.showList(githubRepos);
+                    view.showList(searchResults);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
-
+            public void onFailure(Call<SearchResult> call, Throwable t) {
+                view.showError();
+                Log.e("error", t.toString());
             }
         });
     }
@@ -55,7 +57,7 @@ public class RepositoryListPresenter {
         this.view = null;
     }
 
-    public void openDetails(GithubRepo repo) {
-        view.openDetailsActivity(repo);
+    public void openDetails(SearchResult searchResult, int i) {
+        view.openDetailsActivity(searchResult, i);
     }
 }
