@@ -24,10 +24,7 @@ public class RepoDetailsActivity extends AppCompatActivity implements IViewDetai
     TextView ownerLoginRepoDetailsTextView;
 
     RepositoryDetailsPresenter repositoryDetailsPresenter;
-    SearchResult searchResult;
     GithubRepo repo;
-    GithubRepoOwner owner;
-    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +33,8 @@ public class RepoDetailsActivity extends AppCompatActivity implements IViewDetai
         ButterKnife.bind(this);
         repositoryDetailsPresenter = new RepositoryDetailsPresenter();
         repositoryDetailsPresenter.attach(this);
-        searchResult = getIntent().getParcelableExtra("searchResultParcel");
-        position = getIntent().getExtras().getInt("position");
-        repositoryDetailsPresenter.parseParcel(searchResult, searchResult.getItems().get(position).getOwner(), position);
+        repo = getIntent().getParcelableExtra("githubRepo");
+        repositoryDetailsPresenter.parseParcel(repo);
     }
 
     @Override

@@ -71,9 +71,8 @@ public class MainActivity extends AppCompatActivity implements IView, OnItemClic
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    public void openDetailsActivity(SearchResult searchResult, int i) {
-        detailsIntent.putExtra("searchResultParcel", searchResult);
-        detailsIntent.putExtra("position", i);
+    public void openDetailsActivity(GithubRepo repo) {
+        detailsIntent.putExtra("githubRepo", repo);
         startActivity(detailsIntent);
     }
 

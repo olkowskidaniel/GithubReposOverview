@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IView {
     void showList(SearchResult list);
-    void openDetailsActivity(SearchResult searchResult, int i);
+    void openDetailsActivity(GithubRepo repo);
     void showError();
 }

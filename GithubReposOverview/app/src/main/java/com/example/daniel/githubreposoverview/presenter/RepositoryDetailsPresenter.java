@@ -17,7 +17,7 @@ public class RepositoryDetailsPresenter {
     public void detach(){
         this.viewDetails = null;
     }
-    public void parseParcel(SearchResult searchResult, GithubRepoOwner owner, int i){
-        viewDetails.showRepo(searchResult.getItems().get(i).getName(), owner.getLogin());
+    public void parseParcel(GithubRepo repo){
+        viewDetails.showRepo(repo.getName(), repo.getOwner().getLogin());
     }
 }

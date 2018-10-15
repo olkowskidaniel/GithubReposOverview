@@ -58,6 +58,6 @@ public class RepositoryListPresenter {
     }
 
     public void openDetails(SearchResult searchResult, int i) {
-        view.openDetailsActivity(searchResult, i);
+        view.openDetailsActivity(searchResult.getItems().get(i));
     }
 }
