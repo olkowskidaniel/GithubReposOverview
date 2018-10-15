@@ -14,5 +14,6 @@ public interface GitHubService {
     @GET("search/repositories")
     Call<SearchResult> getReposFromApi(@Query("q") String q,
                                        @Query("sort") String sort,
-                                       @Query("order") String order);
+                                       @Query("order") String order,
+                                       @Query("per_page") int perPage);
 }

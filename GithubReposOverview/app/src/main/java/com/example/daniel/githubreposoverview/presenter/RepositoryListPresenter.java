@@ -31,7 +31,7 @@ public class RepositoryListPresenter {
     public void loadList() {
         retrofit = new Retrofit.Builder().baseUrl("https://api.github.com/").addConverterFactory(GsonConverterFactory.create()).build();
         gitHubService = retrofit.create(GitHubService.class);
-        Call<SearchResult> call = gitHubService.getReposFromApi("android", "stars", "desc");
+        Call<SearchResult> call = gitHubService.getReposFromApi("android", "stars", "desc", 100);
         call.enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
